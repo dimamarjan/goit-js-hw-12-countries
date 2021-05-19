@@ -1,0 +1,27 @@
+.country-list {
+  display: block;
+  width: 360px;
+  margin: 0 auto;
+
+  &-items {
+    list-style: none;
+    padding: 0;
+  }
+
+  &-item {
+    display: flex;
+
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    border-color: rgba(104, 102, 102, 0.746);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &-image {
+    margin-right: 20px;
+  }
+}
