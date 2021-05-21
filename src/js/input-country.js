@@ -11,22 +11,25 @@ inputField.addEventListener(
   'input',
   debounce(() => {
     const texFromInput = inputField.value;
-    countryCardBuild(texFromInput)
-      .then(resp => {
-        if (resp.data.length < 11) {
-          countrySection.innerHTML = countruListTPL(resp.data);
-        }
-        if (resp.data.length === 1) {
-          countrySection.innerHTML = countryCardTPL(resp.data);
-        }
-        if (resp.data.length > 10) {
-          countrySection.innerHTML = '';
-          alertMessage('info', 'Too many matches...');
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        alertMessage('error', 'There is no matches...');
-      });
+    if (texFromInput.length > 1) {
+      countryCardBuild(texFromInput)
+        .then(resp => {
+          if (resp.data === undefined) {
+            countrySection.innerHTML = '';
+            return alertMessage('error', 'There is no matches...');
+          }
+          if (resp.data.length === 1) {
+            return (countrySection.innerHTML = countryCardTPL(resp.data));
+          }
+          if (resp.data.length < 11) {
+            return (countrySection.innerHTML = countruListTPL(resp.data));
+          }
+          if (resp.data.length > 10) {
+            countrySection.innerHTML = '';
+            alertMessage('info', 'Too many matches...');
+          }
+        })
+        .catch(err => err);
+    } else return (countrySection.innerHTML = '');
   }, 500),
 );

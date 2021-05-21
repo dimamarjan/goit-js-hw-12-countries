@@ -4,7 +4,11 @@ import { BASE_URL } from './base-urls';
 export default function countryCardBuild(searchQuery) {
   const temp = axios
     .get(`${BASE_URL.main}${searchQuery}`)
-    .then(resp => resp)
-    .catch(err => console.log(err));
+    .then(resp => {
+      if (resp.status === 200) {
+        return resp;
+      }
+    })
+    .catch(err => err);
   return temp;
 }
